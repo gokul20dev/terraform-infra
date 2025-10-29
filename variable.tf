@@ -15,3 +15,28 @@ variable "vpc_name" {
   type        = string
   default     = "my-vpc"
 }
+
+# ✅ Optional flags to control creation of resources dynamically
+variable "create_vpc" {
+  description = "Whether to create a VPC"
+  type        = bool
+  default     = true
+}
+
+variable "create_s3" {
+  description = "Whether to create an S3 bucket"
+  type        = bool
+  default     = false
+}
+
+variable "create_lb" {
+  description = "Whether to create a Load Balancer"
+  type        = bool
+  default     = false
+}
+
+variable "create_lambda" {
+  description = "Whether to create a Lambda function"
+  type        = bool
+  default     = false
+}
