@@ -10,9 +10,9 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_instance" "web" {
-  ami           = "ami-0e8a34246278c21e4" # example Amazon Linux 2 AMI for ap-south-1
+  ami           = "ami-00af95fa354fdb788" # example Amazon Linux 2 AMI for ap-south-1
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.main.id
+  subnet_id     = "subnet-02b97d710d4383f60"
   tags = {
     Name = "Terraform-Instance"
   }
