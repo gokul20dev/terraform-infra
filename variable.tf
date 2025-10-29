@@ -1,3 +1,6 @@
+# ----------------------------
+# Basic Variables
+# ----------------------------
 variable "aws_region" {
   description = "AWS region to deploy the infrastructure"
   type        = string
@@ -16,7 +19,9 @@ variable "vpc_name" {
   default     = "my-vpc"
 }
 
-# ✅ Optional flags to control creation of resources dynamically
+# ----------------------------
+# Optional Flags (Control Creation)
+# ----------------------------
 variable "create_vpc" {
   description = "Whether to create a VPC"
   type        = bool
@@ -42,12 +47,7 @@ variable "create_lambda" {
 }
 
 variable "create_ec2" {
-  type    = bool
-  default = false
+  description = "Whether to create an EC2 instance"
+  type        = bool
+  default     = false
 }
-
-variable "instance_type" {
-  type    = string
-  default = "t2.micro"
-}
-
