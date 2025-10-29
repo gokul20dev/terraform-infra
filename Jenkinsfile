@@ -22,7 +22,18 @@ pipeline {
                 mkdir -p $TF_STATE_DIR
                 cp -r *.tf $TF_STATE_DIR/
                 cd $TF_STATE_DIR
+
+                echo "🗂 Creating backend.tf file (local backend)..."
+                cat > backend.tf <<EOF
+                terraform {
+                  backend "local" {
+                    path = "$TF_STATE_DIR/terraform.tfstate"
+                  }
+                }
+                EOF
+
                 terraform init
+                terraform workspace new ${VPC_NAME} || terraform workspace select ${VPC_NAME}
                 '''
             }
         }
