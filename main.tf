@@ -15,9 +15,10 @@ resource "aws_vpc" "main" {
 }
 
 # ----------------------------
-# EC2 Instance (always created)
+# EC2 Instance (created only if create_ec2 = true)
 # ----------------------------
 resource "aws_instance" "web" {
+  count         = var.create_ec2 ? 1 : 0
   ami           = "ami-00af95fa354fdb788"
   instance_type = var.instance_type
   subnet_id     = "subnet-02b97d710d4383f60"
