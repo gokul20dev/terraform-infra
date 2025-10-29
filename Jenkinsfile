@@ -1,11 +1,14 @@
 pipeline {
     agent any
 
-    parameters {
-    string(name: 'AWS_REGION', defaultValue: 'ap-south-1', description: 'AWS Region to deploy in')
-    choice(name: 'ACTION', choices: ['plan', 'apply', 'destroy'], description: 'Select Terraform Action')
+  properties([
+  parameters([
+    string(name: 'AWS_REGION', defaultValue: 'ap-south-1', description: 'AWS Region to deploy in'),
+    choice(name: 'ACTION', choices: ['plan', 'apply', 'destroy'], description: 'Select Terraform Action'),
     choice(name: 'SERVICE', choices: ['vpc', 's3', 'load_balancer', 'lambda', 'ec2'], description: 'Select AWS Service to deploy')
-   }
+  ])
+])
+
 
 
     environment {
