@@ -11,6 +11,7 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID     = credentials('aws-access-key')
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
+        TF_STATE_DIR = '/var/jenkins_home/terraform_state'
     }
 
     stages {
