@@ -40,3 +40,14 @@ variable "create_lambda" {
   type        = bool
   default     = false
 }
+
+variable "create_ec2" {
+  type    = bool
+  default = false
+}
+
+variable "instance_type" {
+  type    = string
+  default = "t2.micro"
+}
+
