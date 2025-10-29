@@ -18,7 +18,7 @@ resource "aws_vpc" "main" {
 # EC2 Instance (always created)
 # ----------------------------
 resource "aws_instance" "web" {
-  ami           = "ami-00af95fa354fdb788"  # Example Amazon Linux 2 AMI for ap-south-1
+  ami           = "ami-00af95fa354fdb788"
   instance_type = var.instance_type
   subnet_id     = "subnet-02b97d710d4383f60"
 
@@ -28,20 +28,23 @@ resource "aws_instance" "web" {
 }
 
 # ----------------------------
+# Optional: Random ID for S3
+# ----------------------------
+resource "random_id" "bucket_id" {
+  count       = var.create_s3 ? 1 : 0
+  byte_length = 4
+}
+
+# ----------------------------
 # Optional: S3 Bucket (created only if create_s3 = true)
 # ----------------------------
 resource "aws_s3_bucket" "example" {
   count  = var.create_s3 ? 1 : 0
-  bucket = "${var.vpc_name}-bucket-${random_id.bucket_id.hex}"
+  bucket = "${var.vpc_name}-bucket-${random_id.bucket_id[0].hex}"
 
   tags = {
     Name = "Terraform-S3"
   }
-}
-
-resource "random_id" "bucket_id" {
-  count       = var.create_s3 ? 1 : 0
-  byte_length = 4
 }
 
 # ----------------------------
@@ -67,7 +70,7 @@ resource "aws_lambda_function" "example_lambda" {
   count         = var.create_lambda ? 1 : 0
   filename      = "lambda_function_payload.zip"
   function_name = "example_lambda_function"
-  role          = "arn:aws:iam::123456789012:role/lambda-ex"  # Replace with valid IAM role
+  role          = "arn:aws:iam::123456789012:role/lambda-ex"  # Replace this with a valid IAM role
   handler       = "index.handler"
   runtime       = "python3.9"
 
