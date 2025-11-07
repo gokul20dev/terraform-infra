@@ -1,16 +1,11 @@
 pipeline {
     agent any
 
-
     parameters {
         choice(name: 'SERVICE', choices: ['vpc', 's3', 'load_balancer', 'lambda', 'ec2'], description: 'Select AWS Service to deploy')
         choice(name: 'ACTION', choices: ['plan', 'apply', 'destroy'], description: 'Select Terraform Action')
         string(name: 'AWS_REGION', defaultValue: 'ap-south-1', description: 'AWS Region')
-        
     }
-
-
-
 
     environment {
         AWS_ACCESS_KEY_ID     = credentials('aws-access-key')
