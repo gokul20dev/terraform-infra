@@ -46,7 +46,7 @@ pipeline {
                         -var='create_lb=${params.SERVICE == "load_balancer"}' \
                         -var='create_lambda=${params.SERVICE == "lambda"}' \
                         -var='create_ec2=${params.SERVICE == "ec2"}' \
-                        -var='instance_type=${params.INSTANCE_TYPE}'
+                        -var='instance_type=${ params.SERVICE == "ec2" ? params.INSTANCE_TYPE : "" }'
                     """
 
                     // ✅ Handle Terraform Plan separately (no auto-approve)
