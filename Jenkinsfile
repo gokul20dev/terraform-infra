@@ -51,7 +51,8 @@ pipeline {
                             sh terraformCmd
                         } else {
                             // apply & destroy: auto-approve (no interactive prompt)
-                            sh terraformCmd + " -auto-approve"
+                            sh (terraformCmd + " -auto-approve")
+                            // OR: sh "${terraformCmd} -auto-approve"
                         }
                     }
                 }
