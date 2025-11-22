@@ -28,7 +28,7 @@ pipeline {
         stage('Terraform Action') {
             steps {
                 withCredentials([
-                    string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),
+                    string(credentialsId: 'aws-access-key',  variable: 'AWS_ACCESS_KEY_ID'),
                     string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')
                 ]) {
                     script {
@@ -47,8 +47,10 @@ pipeline {
                         """
 
                         if (params.ACTION == 'plan') {
-                            sh terraformCmd.replace("-auto-approve", "")
+                            // plan: no auto-approve
+                            sh terraformCmd
                         } else {
+                            // apply & destroy: auto-approve (no interactive prompt)
                             sh terraformCmd + " -auto-approve"
                         }
                     }
